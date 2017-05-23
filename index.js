@@ -11,34 +11,34 @@ app.get('/', function(req, res){
 });
 
 app.get('/Greetings/:names', function(req, res){
-  greeted.push({'name':req.params.names});
+  greeted.push(req.params.names);
   res.send("Greetings: " + req.params.names);
 });
 
 app.get('/Greeted', function(req, res){
   var name = req.params.name;
-  var Greetings={};
+  var uniqueNames= [];
+
   for(var i=0;i<greeted.length;i++){
-    var greetedNames=greeted[i];
-    // if(greetedNames[name]===undefined){
+    if(uniqueNames.indexOf(greeted[i]) ===-1){
+      uniqueNames.push(greeted[i]);
 
   }
-
-  res.send(greeted);
+}
+  res.send(uniqueNames);
 });
 
 
-app.get('/Counter/:name', function(req, res){
-var name = req.params.name;
+app.get('/Counter/:names', function(req, res){
+var name = req.params.names;
 var greetingsCount = 0;
 for(var i=0;i<greeted.length;i++){
-  if(greeted[i].name === name){
+  if(greeted[i] === name){
     greetingsCount++;
 }
 
   }
-
-    res.send("Has been greeted" +' '+ greetingsCount +' ' +"times");
+  res.send("Has been greeted" +' '+ greetingsCount +' ' +"time(s)");
 
 });
 
@@ -47,24 +47,3 @@ app.listen(port, function(){
 console.log('web app started on port:'+port);
 
 });
-
-
-
-
-// var express = require('express');
-// var app = express();
-//
-// // create a route
-// app.post('/hello', function(){
-//
-//
-// });
-//
-// //start the server
-// var server = app.listen(3000, function(){
-// var host = server.address().address;
-// var port = server.address().port;
-//
-//  console.log('Example app listening at http://%s:%s', host, port);
-//
-// });
